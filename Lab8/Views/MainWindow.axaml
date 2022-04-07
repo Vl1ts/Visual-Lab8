@@ -1,0 +1,169 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Lab8.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="700"
+		Width="550" Height="700"
+        x:Class="Lab8.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Lab8">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	
+    <Grid RowDefinitions="0.8*, *, 15*, *">
+		
+		<!--Menu-->
+		<Menu Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+			<MenuItem Header="File">
+				<MenuItem Header="New" Name="MenuNewBtn"/>
+				<MenuItem Header="Save" Name="MenuSaveBtn"/>
+				<MenuItem Header="Load" Name="MenuLoadBtn"/>
+				<Separator/>
+				<MenuItem Header="Exit" Name="MenuExitBtn"/>
+			</MenuItem>
+			<MenuItem Header="About" Name="MenuAboutBtn"/>
+		</Menu>
+
+		<!--Headers-->
+		<Grid Grid.Row="1" RowDefinitions="*" ColumnDefinitions="*, *, *">
+			<TextBox Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Focusable="False" IsReadOnly="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">To Do</TextBox>
+			<TextBox Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Focusable="False" IsReadOnly="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">Doing</TextBox>
+			<TextBox Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Focusable="False" IsReadOnly="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">Done</TextBox>
+		</Grid>
+		
+		<!--Tasks-->
+		<Grid Grid.Row="2" RowDefinitions="*" ColumnDefinitions="*, *, *">
+
+			<!--ToDo-->
+			<ScrollViewer Grid.Column="0">
+
+				<ItemsControl Items="{Binding TasksToDo}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+
+							<Expander Header="{Binding Header}" HorizontalContentAlignment="Stretch">
+
+								<StackPanel>
+
+									<TextBlock>Header:</TextBlock>
+									<TextBox Text="{Binding Header}" Margin="0 5 0 5"></TextBox>
+
+									<TextBlock>Task</TextBlock>
+									<TextBox Text="{Binding Description}" Margin="0 5 0 15" Height="75" TextWrapping="Wrap"></TextBox>
+
+									<Image Source="{Binding TaskImage}"></Image>
+
+									<Button Name="AddImgBtn" Command="{Binding $parent[ItemsControl].VisualRoot.AddImg}" CommandParameter="{Binding}" Margin="0 15 0 5">Add Image</Button>
+									<Button Name="DeleteTaskBtn" Command="{Binding $parent[ItemsControl].DataContext.DeleteTaskToDo}" CommandParameter="{Binding}">Delete</Button>
+
+								</StackPanel>
+								
+							</Expander>
+
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+				
+			</ScrollViewer>
+
+			<!--Doing-->
+			<ScrollViewer Grid.Column="1">
+
+				<ItemsControl Items="{Binding TasksDoing}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+
+							<Expander Header="{Binding Header}" HorizontalContentAlignment="Stretch">
+
+								<StackPanel>
+
+									<TextBlock>Header:</TextBlock>
+									<TextBox Text="{Binding Header}" Margin="0 5 0 5"></TextBox>
+
+									<TextBlock>Task</TextBlock>
+									<TextBox Text="{Binding Description}" Margin="0 5 0 15" Height="75" TextWrapping="Wrap"></TextBox>
+
+									<Image Source="{Binding TaskImage}"></Image>
+
+									<Button Name="AddImgBtn" Command="{Binding $parent[ItemsControl].VisualRoot.AddImg}" CommandParameter="{Binding}" Margin="0 15 0 5">Add Image</Button>
+									<Button Name="DeleteTaskBtn" Command="{Binding $parent[ItemsControl].DataContext.DeleteTaskDoing}" CommandParameter="{Binding}">Delete</Button>
+
+								</StackPanel>
+
+							</Expander>
+
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
+			</ScrollViewer>
+
+			<!--Done-->
+			<ScrollViewer Grid.Column="2">
+
+				<ItemsControl Items="{Binding TasksDone}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+
+							<Expander Header="{Binding Header}" HorizontalContentAlignment="Stretch">
+
+								<StackPanel>
+
+									<TextBlock>Header:</TextBlock>
+									<TextBox Text="{Binding Header}" Margin="0 5 0 5"></TextBox>
+
+									<TextBlock>Task</TextBlock>
+									<TextBox Text="{Binding Description}" Margin="0 5 0 15" Height="75" TextWrapping="Wrap"></TextBox>
+
+									<Image Source="{Binding TaskImage}"></Image>
+
+									<Button Name="AddImgBtn" Command="{Binding $parent[ItemsControl].VisualRoot.AddImg}" CommandParameter="{Binding}" Margin="0 15 0 5">Add Image</Button>
+									<Button Name="DeleteTaskBtn" Command="{Binding $parent[ItemsControl].DataContext.DeleteTaskDone}" CommandParameter="{Binding}">Delete</Button>
+
+								</StackPanel>
+
+							</Expander>
+
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
+			</ScrollViewer>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</Grid>
+
+		
+		
+		
+		
+		
+		<!--Add buttons-->
+		<Grid Grid.Row="3" ColumnDefinitions="*, *, *">
+			<Button Grid.Column="0" Command="{Binding AddTaskToDo}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+				Add
+			</Button>
+			<Button Grid.Column="1" Command="{Binding AddTaskDoing}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+				Add
+			</Button>
+			<Button Grid.Column="2" Command="{Binding AddTaskDone}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+				Add
+			</Button>
+		</Grid>
+
+		
+		
+		
+	</Grid>
+	
+</Window>
